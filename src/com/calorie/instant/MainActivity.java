@@ -1,8 +1,7 @@
 package com.calorie.instant;
 
-
 import java.util.List;
-
+import java.util.List;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
@@ -23,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.calorie.instant.util.BitmapHelper;
+import com.calorie.instant.util.ColorBlobDetector;
 import com.calorie.instant.util.Log;
 
 public class MainActivity extends Activity
