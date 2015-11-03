@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:contentDescription="@string/content_desc_overlay"
-        android:src="@drawable/circle" />
+        android:src="@drawable/img2" />
 
     <Button
         android:layout_width="wrap_content"

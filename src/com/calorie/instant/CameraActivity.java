@@ -1,12 +1,20 @@
 package com.calorie.instant;
 
-import java.io.File;
 import static com.calorie.instant.util.CameraHelper.cameraAvailable;
 import static com.calorie.instant.util.CameraHelper.getCameraInstance;
 import static com.calorie.instant.util.MediaHelper.getOutputMediaFile;
 import static com.calorie.instant.util.MediaHelper.saveToFile;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
@@ -47,7 +55,6 @@ public class CameraActivity extends Activity implements PictureCallback {
 		cameraPreview.init(camera);
 	}
 
-	
 	public void onCaptureClick(View button){
 		// Take a picture with a callback when the photo has been created
 		// Here you can add callbacks if you want to give feedback when the picture is being taken
@@ -57,14 +64,65 @@ public class CameraActivity extends Activity implements PictureCallback {
 	@Override
 	public void onPictureTaken(byte[] data, Camera camera) {
 		Log.d("Picture taken");
-		String path = savePictureToFileSystem(data);
+
+		String path = savePictureToFileSystem(data, data);
+		/**		Bitmap background = BitmapFactory.decodeFile(path);
+		Bitmap drawBack = background.copy(Bitmap.Config.ARGB_8888, true);
+		Bitmap form = BitmapFactory.decodeResource(getResources(), R.drawable.plate);
+		Canvas image = new Canvas(drawBack);
+		image.drawBitmap(form, 0f, 0f, null);
+		FileOutputStream os;
+		try {
+			os = new FileOutputStream("/sdcard/DCIM/Camera/" + "myNewFileName.png");
+			drawBack.compress(CompressFormat.PNG, 50, os);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}**/
+		Bitmap drawBack = BitmapFactory.decodeFile(path).copy(Bitmap.Config.ARGB_8888, true);
+		int mWidth = drawBack.getWidth()/2;
+		int mHeight = drawBack.getHeight()/2;
+		
+		//crop fruit
+		cropImage(drawBack, 0, 0, mWidth, mHeight, "fruit");
+		
+		//crop vegetables
+		cropImage(drawBack, 0, mHeight, mWidth, mHeight, "vegetables");
+		
+		//crop grains
+		cropImage(drawBack, mWidth, 0, mWidth, mHeight, "grain");
+		
+		//crop protein
+		cropImage(drawBack, mWidth, mHeight, mWidth, mHeight, "protein");
+		
 		setResult(path);
 		finish();
 	}
+	
+	private Bitmap cropImage(Bitmap bitmapOrig, int x1, int y1, int newWidth, int newHeight, String name)
+	{
+		Bitmap croppedBmp = bitmapOrig.createBitmap(bitmapOrig, x1, y1, newWidth, newHeight);
+		FileOutputStream os;
+		try 
+		{
+			os = new FileOutputStream("/sdcard/DCIM/Facebook/" + name + ".png");
+			croppedBmp.compress(CompressFormat.PNG, 50, os);
+			os.flush();
+			os.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return croppedBmp;
+	}
 
-	private static String savePictureToFileSystem(byte[] data) {
+	private static String savePictureToFileSystem(byte[] data, byte[] byteArray) {
 		File file = getOutputMediaFile();
 		saveToFile(data, file);
+		//saveToFile(byteArray, file);
 		return file.getAbsolutePath();
 	}
 
