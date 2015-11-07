@@ -16,7 +16,6 @@ import org.opencv.imgproc.Moments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class CalculoTask extends AsyncTask< String, Integer, Double >
@@ -93,6 +92,6 @@ public class CalculoTask extends AsyncTask< String, Integer, Double >
 	protected void onPostExecute( Double result )
 	{
 		super.onPostExecute( result );
-		Toast.makeText( context, "Proceso terminado", Toast.LENGTH_LONG ).show( );
+		Toast.makeText( context, "Proceso terminado: ".concat( String.valueOf( result ) ), Toast.LENGTH_LONG ).show( );
 	}
 }
