@@ -17,12 +17,13 @@ import android.os.Environment;
  *
  */
 public class MediaHelper {
+	public static int secuence= 1;
 
 	public static File getOutputMediaFile(){
 	    // To be safe, you should check that the SDCard is mounted
 	    // using Environment.getExternalStorageState() before doing this.
 
-	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Spike");
+	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "InstantCalorie");
 	    // This location works best if you want the created images to be shared
 	    // between applications and persist after your app has been uninstalled.
 
@@ -35,8 +36,9 @@ public class MediaHelper {
 	    }
 
 	    // Create a media file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_"+ timeStamp +".jpg");
+	    //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    secuence++;
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_"+  secuence +".jpg");
 
 	    return mediaFile;
 	}

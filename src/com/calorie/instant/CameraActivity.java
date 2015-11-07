@@ -18,10 +18,12 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 
 import com.calorie.instant.ui.CameraPreview;
 import com.calorie.instant.util.Log;
+import com.calorie.instant.util.MediaHelper;
 
 /**
  * Takes a photo saves it to the SD card and returns the path of this photo to the calling Activity
@@ -31,7 +33,7 @@ import com.calorie.instant.util.Log;
 public class CameraActivity extends Activity implements PictureCallback {
 
 	protected static final String EXTRA_IMAGE_PATH = "com.blundell.tut.cameraoverlay.ui.CameraActivity.EXTRA_IMAGE_PATH";
-
+	public static String FOLDER_IMAGE = "calorieInstant";
 	private Camera camera;
 	private CameraPreview cameraPreview;
 
@@ -79,44 +81,8 @@ public class CameraActivity extends Activity implements PictureCallback {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}**/
-		Bitmap drawBack = BitmapFactory.decodeFile(path).copy(Bitmap.Config.ARGB_8888, true);
-		int mWidth = drawBack.getWidth()/2;
-		int mHeight = drawBack.getHeight()/2;
-		
-		//crop fruit
-		cropImage(drawBack, 0, 0, mWidth, mHeight, "fruit");
-		
-		//crop vegetables
-		cropImage(drawBack, 0, mHeight, mWidth, mHeight, "vegetables");
-		
-		//crop grains
-		cropImage(drawBack, mWidth, 0, mWidth, mHeight, "grain");
-		
-		//crop protein
-		cropImage(drawBack, mWidth, mHeight, mWidth, mHeight, "protein");
-		
 		setResult(path);
 		finish();
-	}
-	
-	private Bitmap cropImage(Bitmap bitmapOrig, int x1, int y1, int newWidth, int newHeight, String name)
-	{
-		Bitmap croppedBmp = bitmapOrig.createBitmap(bitmapOrig, x1, y1, newWidth, newHeight);
-		FileOutputStream os;
-		try 
-		{
-			os = new FileOutputStream("/sdcard/DCIM/Facebook/" + name + ".png");
-			croppedBmp.compress(CompressFormat.PNG, 50, os);
-			os.flush();
-			os.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return croppedBmp;
 	}
 
 	private static String savePictureToFileSystem(byte[] data, byte[] byteArray) {
@@ -134,8 +100,10 @@ public class CameraActivity extends Activity implements PictureCallback {
 
 	// ALWAYS remember to release the camera when you are finished
 	@Override
-	protected void onPause() {
+	protected void onPause() {		
 		super.onPause();
+		camera.stopPreview();
+		camera.release();
 		releaseCamera();
 	}
 

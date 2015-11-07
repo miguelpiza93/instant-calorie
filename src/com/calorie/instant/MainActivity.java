@@ -1,5 +1,8 @@
 package com.calorie.instant;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.List;
 import org.opencv.android.BaseLoaderCallback;
@@ -16,7 +19,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +29,7 @@ import android.widget.TextView;
 import com.calorie.instant.util.BitmapHelper;
 import com.calorie.instant.util.ColorBlobDetector;
 import com.calorie.instant.util.Log;
+import com.calorie.instant.util.MediaHelper;
 
 public class MainActivity extends Activity
 {
@@ -33,6 +39,8 @@ public class MainActivity extends Activity
 	
 	private ColorBlobDetector mDetector;
 	private boolean openCVLoaded;
+
+	private TextView cameraDescriptionTextView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,7 @@ public class MainActivity extends Activity
 			message = "No camera detected, clicking the button below will have unexpected behaviour.";
 		}
 
-		TextView cameraDescriptionTextView = (TextView) findViewById(R.id.text_view_camera_description);
+		cameraDescriptionTextView = (TextView) findViewById(R.id.text_view_camera_description);
 		cameraDescriptionTextView.setText(message);
 	}
 
@@ -57,6 +65,7 @@ public class MainActivity extends Activity
 	public void onUseCameraClick(View button){
 		Intent intent = new Intent(this, CameraActivity.class);
 		startActivityForResult(intent, REQ_CAMERA_IMAGE);
+		
 	}
 
 	@Override
@@ -65,13 +74,16 @@ public class MainActivity extends Activity
 			String imgPath = data.getStringExtra(CameraActivity.EXTRA_IMAGE_PATH);
 			Log.i("Got image path: "+ imgPath);
 			displayImage(imgPath);
-			calcularArea(imgPath);
+			//calcularArea(imgPath);
+			RecorteTask recorte = new RecorteTask(this.getApplicationContext(), cameraDescriptionTextView);	
+			recorte.execute(imgPath);
 		} else
 			if(requestCode == REQ_CAMERA_IMAGE && resultCode == RESULT_CANCELED){
 				Log.i("User didn't take an image");
 			}
 	}
 
+	
 	private void calcularArea( String imgPath )
 	{
 		android.util.Log.i(TAG, "Entra a calcular area");
