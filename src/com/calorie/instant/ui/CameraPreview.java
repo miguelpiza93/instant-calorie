@@ -55,14 +55,32 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 			Log.d("Error setting camera preview", e);
 		}
 	}
-
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-	}
-
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 	}
 	
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+		refreshCamera(camera);
+	}
+
+	public void refreshCamera(Camera camera) {
+		if (holder.getSurface() == null) {
+			// preview surface does not exist
+			return;
+		}
+		// stop preview before making changes
+		try {
+			camera.stopPreview();
+		} catch (Exception e) {
+			// ignore: tried to stop a non-existent preview
+		}
+		try {
+			camera.setPreviewDisplay(holder);
+			camera.startPreview();
+		} catch (Exception e) {
+			Log.d("Error starting camera preview: " + e.getMessage(), e);
+		}
+	}
 	
 }
