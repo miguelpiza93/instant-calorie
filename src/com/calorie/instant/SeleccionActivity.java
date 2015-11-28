@@ -77,7 +77,7 @@ public class SeleccionActivity extends Activity implements OnClickListener, OnTo
 		imgActual = 0;
 
 		txtPorcionActual = (TextView)findViewById( R.id.txtPorcionActual );
-		txtPorcionActual.setText( "Seleccione la porciÃ³n de fruta" );
+		txtPorcionActual.setText( "Seleccione la porción de fruta" );
 		imgSeleccion = (ImageView)findViewById( R.id.imgSelec );
 		imgSeleccion.setImageBitmap(BitmapHelper.decodeSampledBitmap(RUTA_RECORTES.concat( "fruit2.jpg" ), 300, 300));
 		imgSeleccion.setOnTouchListener( this );
