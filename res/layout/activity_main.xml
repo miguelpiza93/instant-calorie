@@ -28,4 +28,19 @@
         android:contentDescription="@string/content_desc_image_just_taken"
         android:scaleType="fitXY" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
 </LinearLayout>

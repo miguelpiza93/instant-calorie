@@ -4,23 +4,22 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.calorie.instant.util.MediaHelper;
-
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calorie.instant.util.MediaHelper;
+
 public class RecorteTask extends AsyncTask<String, Integer, Void>
 {
 	private TextView text;
-	private Context contexto;
+	private MainActivity contexto;	
 
-	public RecorteTask(Context applicationContext,
+	public RecorteTask(MainActivity applicationContext,
 			TextView cameraDescriptionTextView) 
 	{
 		contexto = applicationContext;
@@ -56,12 +55,12 @@ public class RecorteTask extends AsyncTask<String, Integer, Void>
 	}
 	private void cropImage(Bitmap bitmapOrig, int x1, int y1, int newWidth, int newHeight, String name)
 	{
-		Bitmap croppedBmp = bitmapOrig.createBitmap(bitmapOrig, x1, y1, newWidth, newHeight);
+		Bitmap croppedBmp = Bitmap.createBitmap(bitmapOrig, x1, y1, newWidth, newHeight);
 		FileOutputStream os;
 		try 
 		{
-			os = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/InstantCalorie/"+ name+".png");
-			croppedBmp.compress(CompressFormat.PNG, 50, os);
+			os = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/InstantCalorie/"+ name+".jpg");
+			croppedBmp.compress(CompressFormat.JPEG, 100, os);
 			os.flush();
 			os.close();
 			croppedBmp = null;
@@ -85,10 +84,9 @@ public class RecorteTask extends AsyncTask<String, Integer, Void>
 	
 	@Override
 	protected void onPostExecute(Void result) {
-		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		Toast.makeText(contexto, "Procesamiento completado !!", Toast.LENGTH_SHORT).show();
+		contexto.mostrarActividadSeleccion( );
 	}
-
 
 }

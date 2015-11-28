@@ -32,10 +32,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="CameraActivity"
+            android:name="com.calorie.instant.CameraActivity"
             android:label="@string/title_activity_camera"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.calorie.instant.SeleccionActivity"
+            android:label="@string/title_activity_seleccion" >
+        </activity>
     </application>
 
 </manifest>

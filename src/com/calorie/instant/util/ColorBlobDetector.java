@@ -58,7 +58,6 @@ public class ColorBlobDetector {
 
         Imgproc.cvtColor(spectrumHsv, mSpectrum, Imgproc.COLOR_HSV2RGB_FULL, 4);
     }
-    
 
     public Mat getSpectrum() {
         return mSpectrum;

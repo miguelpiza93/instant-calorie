@@ -18,14 +18,18 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.calorie.instant.util.ColorBlobDetector;
+
 public class CalculoTask extends AsyncTask< String, Integer, Double >
 {
 
 	private static final String  TAGCAL = "TaskCalcular";
 	private Context context;
+	private ColorBlobDetector mDetector;
 
 	public CalculoTask(Context context)
 	{
+		mDetector = new ColorBlobDetector( );
 		this.context = context;
 	}
 
@@ -39,6 +43,36 @@ public class CalculoTask extends AsyncTask< String, Integer, Double >
 	{
 		try
 		{
+			/*
+			Mat src = Highgui.imread( imgPath );
+
+			mDetector.process(src);
+			List<MatOfPoint> contours = mDetector.getContours();
+
+			Moments[] mu = new Moments[contours.size( )];
+
+			/// Draw contours
+			Mat drawing = Mat.zeros( src.size(), CvType.CV_8UC3 );
+			Scalar color = new Scalar( 255, 255, 255 );
+
+			/// Get the moments
+			for ( int i = 0; i < contours.size( ); i++ )
+			{
+				mu[i] = Imgproc.moments(contours.get( i ));
+				Imgproc.drawContours( drawing, contours, i, color, 2, 8, new Mat(), 0, new Point() );
+			}
+			
+			Highgui.imwrite( Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS ).getPath( ).concat( "/contorno.jpg" ) , drawing );
+
+			double areas = 0;
+			for( int i = 0; i< contours.size(); i++ )
+			{
+				areas += mu[i].get_m00( );
+			}
+
+			return areas;
+			*/
+			
 			Mat src = Highgui.imread( imgPath, Highgui.IMREAD_COLOR );
 			Mat src_gray = new Mat();
 			Imgproc.cvtColor( src, src_gray, Imgproc.COLOR_BGR2GRAY );
@@ -84,6 +118,7 @@ public class CalculoTask extends AsyncTask< String, Integer, Double >
 		catch ( Exception e )
 		{
 			android.util.Log.i(TAGCAL, "Error" );
+			Toast.makeText( context, "Error\n: ".concat( e.getMessage( ) ), Toast.LENGTH_LONG ).show( );
 		}
 		return -1;
 	}
@@ -93,5 +128,12 @@ public class CalculoTask extends AsyncTask< String, Integer, Double >
 	{
 		super.onPostExecute( result );
 		Toast.makeText( context, "Proceso terminado: ".concat( String.valueOf( result ) ), Toast.LENGTH_LONG ).show( );
+	}
+
+	@Override
+	protected void onProgressUpdate( Integer... values )
+	{
+		super.onProgressUpdate( values );
+		Toast.makeText( context, "Ciclo: ".concat( String.valueOf( values[0] ) ), Toast.LENGTH_LONG ).show( );
 	}
 }
