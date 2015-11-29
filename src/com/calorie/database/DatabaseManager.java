@@ -20,7 +20,20 @@ public class DatabaseManager extends SQLiteOpenHelper
 	public void onCreate( SQLiteDatabase db )
 	{
 		db.execSQL(sqlCreateGrupo);
-		db.execSQL(sqlCreateGrupo);
+
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 20)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 65)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 65)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 80)");
+		
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 50)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 100)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Uvas', 'Frutas', , 100)");
+		
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Arroz', 'Granos', , 100)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 100)");
+		
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pollo', 'Proteina', , 100)");
 	}	
 
 	@Override
@@ -31,7 +44,9 @@ public class DatabaseManager extends SQLiteOpenHelper
         //      Sin embargo lo normal será que haya que migrar datos de la tabla antigua
         //      a la nueva, por lo que este método debería ser más elaborado.
 		//Se elimina la versión anterior de la tabla
+		
         db.execSQL("DROP TABLE IF EXISTS GrupoAlimenticio");
         db.execSQL(sqlCreateGrupo);
 	}
 }
+
