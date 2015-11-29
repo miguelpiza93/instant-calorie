@@ -7,15 +7,14 @@ import java.io.IOException;
 
 import android.os.Environment;
 
+
 /**
  * Used to make file system use in the tutorial a bit more obvious
  * in a production environment you wouldn't make these calls static
  * as you have no way to mock them for testing
- * @author paul.blundell
  *
  */
 public class MediaHelper {
-	public static int secuence= 1;
 
 	public static File getOutputMediaFile(){
 	    // To be safe, you should check that the SDCard is mounted
@@ -35,8 +34,7 @@ public class MediaHelper {
 
 	    // Create a media file name
 	    //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    secuence++;
-	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_"+  secuence +".jpg");
+	    File mediaFile = new File(mediaStorageDir.getPath() + File.separator +"IMG_1.jpg");
 
 	    return mediaFile;
 	}

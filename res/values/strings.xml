@@ -11,5 +11,11 @@
     <string name="content_desc_image_just_taken">Image just taken</string>
     <string name="title_activity_seleccion">SeleccionActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="continuar">Continuar</string>
+    <string name="seleccione_sus_alimentos">Seleccione sus alimentos</string>
+    <string name="frutas">Frutas:</string>
+    <string name="granos">Granos:</string>
+    <string name="vegetales">Vegetales:</string>
+    <string name="proteinas">Proteinas:</string>
 
 </resources>

@@ -8,12 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-
-    <TextView
-        android:layout_width="284dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_view_camera_description" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -42,5 +36,10 @@
             android:visibility="gone" />
 
     </RelativeLayout>
+    
+    <TextView
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/resume" />
 
 </LinearLayout>

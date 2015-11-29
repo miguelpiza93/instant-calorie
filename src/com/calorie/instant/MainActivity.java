@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,23 +26,27 @@ public class MainActivity extends Activity
 
 	private boolean openCVLoaded;
 
-	private TextView cameraDescriptionTextView;
+	private TextView resumeTextView;
 
 	private ProgressBar pg;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_foods);
+	}
+	
+	public void onClickContinuar(View button)
+	{
 		setContentView(R.layout.activity_main);
-
 		pg = (ProgressBar)findViewById( R.id.progressBar );
-
-		String message = "Click the button below to start";
+		
+		String message = "";
 		if(cameraNotDetected()){
 			message = "No camera detected, clicking the button below will have unexpected behaviour.";
 		}
-		cameraDescriptionTextView = (TextView) findViewById(R.id.text_view_camera_description);
-		cameraDescriptionTextView.setText(message);
+		resumeTextView = (TextView) findViewById(R.id.resume);
+		resumeTextView.setText(message);
 	}
 
 	private boolean cameraNotDetected() {
@@ -49,6 +54,7 @@ public class MainActivity extends Activity
 	}
 
 	public void onUseCameraClick(View button){
+		resumeTextView.setText("");
 		Intent intent = new Intent(this, CameraActivity.class);
 		startActivityForResult(intent, REQ_CAMERA_IMAGE);
 	}
@@ -59,15 +65,14 @@ public class MainActivity extends Activity
 			String imgPath = data.getStringExtra(CameraActivity.EXTRA_IMAGE_PATH);
 			Log.i("Got image path: "+ imgPath);
 			displayImage(imgPath);
-			RecorteTask recorte = new RecorteTask(this, cameraDescriptionTextView);
+			RecorteTask recorte = new RecorteTask(this);
 			recorte.execute(imgPath);		
 			pg.setVisibility( View.VISIBLE );
 		} 
 		else if(requestCode == 2 && resultCode == RESULT_OK)
 		{
 			double[] areas = data.getDoubleArrayExtra("areas");
-			Toast.makeText(this, areas[0] +" "+ areas[1] +" "+ areas[2] +" "+ areas[3], Toast.LENGTH_SHORT).show();
-			
+			resumeTextView.setText("Fruta: "+ areas[0] +"\n"+ "Grano: " + areas[1] +"\n"+ "Proteina: "+areas[2] +"\n"+ "Vegetales: " +areas[3]);
 		}
 		else
 			if(requestCode == REQ_CAMERA_IMAGE && resultCode == RESULT_CANCELED){
@@ -119,5 +124,4 @@ public class MainActivity extends Activity
 			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 		}
 	}
-
 }

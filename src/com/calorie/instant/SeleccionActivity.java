@@ -55,7 +55,7 @@ public class SeleccionActivity extends Activity implements OnClickListener,
 		public void onManagerConnected(int status) {
 			switch (status) {
 			case LoaderCallbackInterface.SUCCESS: {
-				mRgba = Highgui.imread(RUTA_RECORTES.concat("fruit2.jpg"));
+				mRgba = Highgui.imread(RUTA_RECORTES.concat("fruit.jpg"));
 				mRgbaCopy = new Mat();
 				mRgba.copyTo(mRgbaCopy);
 				mDetector = new ColorBlobDetector();
@@ -87,7 +87,7 @@ public class SeleccionActivity extends Activity implements OnClickListener,
 		txtPorcionActual.setText("Seleccione la porción de fruta");
 		imgSeleccion = (ImageView) findViewById(R.id.imgSelec);
 		imgSeleccion.setImageBitmap(BitmapHelper.decodeSampledBitmap(
-				RUTA_RECORTES.concat("fruit2.jpg"), 300, 300));
+				RUTA_RECORTES.concat("fruit.jpg"), 300, 300));
 		imgSeleccion.setOnTouchListener(this);
 		findViewById(R.id.btnContinuarSel).setOnClickListener(this);
 	}
@@ -100,22 +100,22 @@ public class SeleccionActivity extends Activity implements OnClickListener,
 		case 1:
 			txtPorcionActual.setText("Seleccione la porción de grano");
 			imgSeleccion.setImageBitmap(BitmapHelper.decodeSampledBitmap(
-					RUTA_RECORTES.concat("grain2.jpg"), 300, 300));
-			mRgba = Highgui.imread(RUTA_RECORTES.concat("grain2.jpg"));
+					RUTA_RECORTES.concat("grain.jpg"), 300, 300));
+			mRgba = Highgui.imread(RUTA_RECORTES.concat("grain.jpg"));
 			mRgba.copyTo(mRgbaCopy);
 			break;
 		case 2:
 			txtPorcionActual.setText("Seleccione la porción de proteina");
 			imgSeleccion.setImageBitmap(BitmapHelper.decodeSampledBitmap(
-					RUTA_RECORTES.concat("protein2.jpg"), 300, 300));
-			mRgba = Highgui.imread(RUTA_RECORTES.concat("protein2.jpg"));
+					RUTA_RECORTES.concat("protein.jpg"), 300, 300));
+			mRgba = Highgui.imread(RUTA_RECORTES.concat("protein.jpg"));
 			mRgba.copyTo(mRgbaCopy);
 			break;
 		case 3:
 			txtPorcionActual.setText("Seleccione la porción de vegetales");
 			imgSeleccion.setImageBitmap(BitmapHelper.decodeSampledBitmap(
-					RUTA_RECORTES.concat("vegetables2.jpg"), 300, 300));
-			mRgba = Highgui.imread(RUTA_RECORTES.concat("vegetables2.jpg"));
+					RUTA_RECORTES.concat("vegetables.jpg"), 300, 300));
+			mRgba = Highgui.imread(RUTA_RECORTES.concat("vegetables.jpg"));
 			mRgba.copyTo(mRgbaCopy);
 			break;
 		default:

@@ -16,33 +16,28 @@ import com.calorie.instant.util.MediaHelper;
 
 public class RecorteTask extends AsyncTask<String, Integer, Void>
 {
-	private TextView text;
 	private MainActivity contexto;	
 
-	public RecorteTask(MainActivity applicationContext,
-			TextView cameraDescriptionTextView) 
+	public RecorteTask(MainActivity applicationContext) 
 	{
 		contexto = applicationContext;
-		text = cameraDescriptionTextView;
-		text.setText("Un momento por favor... Procesando Imagen");
 	}
 
 	public void obtenerSecciones (String pathImage)
 	{
 		Bitmap drawBack = BitmapFactory.decodeFile(pathImage).copy(Bitmap.Config.ARGB_8888, true);
 		int mWidth = drawBack.getWidth()/2;
-		int mHeight = drawBack.getHeight()/2;
 		int auxVegetables = (int) (drawBack.getHeight()*0.44);
 		int auxGrain = (int) (drawBack.getHeight()*0.55);
 		
 		//crop fruit
-		cropImage(drawBack, 0, 0, mWidth, auxVegetables, "fruit"+MediaHelper.secuence);
+		cropImage(drawBack, 0, 0, mWidth, auxVegetables, "fruit");
 		//crop vegetables
-		cropImage(drawBack, 0, auxVegetables, mWidth, drawBack.getHeight()-auxVegetables, "vegetables" + MediaHelper.secuence);
+		cropImage(drawBack, 0, auxVegetables, mWidth, drawBack.getHeight()-auxVegetables, "vegetables");
 		//crop grains
-		cropImage(drawBack, mWidth, 0, mWidth, auxGrain, "grain"+MediaHelper.secuence);
+		cropImage(drawBack, mWidth, 0, mWidth, auxGrain, "grain");
 		//crop protein
-		cropImage(drawBack, mWidth, auxGrain, mWidth, drawBack.getHeight()-auxGrain, "protein" +MediaHelper.secuence);
+		cropImage(drawBack, mWidth, auxGrain, mWidth, drawBack.getHeight()-auxGrain, "protein");
 	}
 	private void cropImage(Bitmap bitmapOrig, int x1, int y1, int newWidth, int newHeight, String name)
 	{
@@ -65,7 +60,6 @@ public class RecorteTask extends AsyncTask<String, Integer, Void>
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		super.onProgressUpdate(values);
-		Toast.makeText(contexto, "Un momento por favor... Procesando Imagen ".concat(String.valueOf(values[0])).concat("/4"), Toast.LENGTH_SHORT).show();
 	}
 	@Override
 	protected Void doInBackground(String... params) {
