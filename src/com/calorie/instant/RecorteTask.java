@@ -37,21 +37,12 @@ public class RecorteTask extends AsyncTask<String, Integer, Void>
 		
 		//crop fruit
 		cropImage(drawBack, 0, 0, mWidth, auxVegetables, "fruit"+MediaHelper.secuence);
-		publishProgress(1);
-		//setTexto("Un momento por favor... Procesando Imagen 1/4");
 		//crop vegetables
 		cropImage(drawBack, 0, auxVegetables, mWidth, drawBack.getHeight()-auxVegetables, "vegetables" + MediaHelper.secuence);
-		publishProgress(2);
-		//setTexto("Un momento por favor... Procesando Imagen 2/4");
 		//crop grains
 		cropImage(drawBack, mWidth, 0, mWidth, auxGrain, "grain"+MediaHelper.secuence);
-		publishProgress(3);
-		//setTexto("Un momento por favor... Procesando Imagen 3/4");
 		//crop protein
 		cropImage(drawBack, mWidth, auxGrain, mWidth, drawBack.getHeight()-auxGrain, "protein" +MediaHelper.secuence);
-		publishProgress(4);
-		//setTexto("Un momento por favor... Procesando Imagen 4/4");
-		//setTexto("Procesamiento completado !! ");
 	}
 	private void cropImage(Bitmap bitmapOrig, int x1, int y1, int newWidth, int newHeight, String name)
 	{

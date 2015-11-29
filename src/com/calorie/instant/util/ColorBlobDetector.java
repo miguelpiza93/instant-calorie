@@ -10,6 +10,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.imgproc.Moments;
 
 public class ColorBlobDetector {
     // Lower and Upper bounds for range checking in HSV color space
@@ -21,6 +22,8 @@ public class ColorBlobDetector {
     private Scalar mColorRadius = new Scalar(25,50,50,0);
     private Mat mSpectrum = new Mat();
     private List<MatOfPoint> mContours = new ArrayList<MatOfPoint>();
+    //máxima área encontrada
+    private double maximaArea;
 
     // Cache
     Mat mPyrDownMat = new Mat();
@@ -67,7 +70,7 @@ public class ColorBlobDetector {
         mMinContourArea = area;
     }
 
-    public void process(Mat rgbaImage) {
+    public double process(Mat rgbaImage) {
         Imgproc.pyrDown(rgbaImage, mPyrDownMat);
         Imgproc.pyrDown(mPyrDownMat, mPyrDownMat);
 
@@ -99,10 +102,34 @@ public class ColorBlobDetector {
                 Core.multiply(contour, new Scalar(4,4), contour);
                 mContours.add(contour);
             }
-        }
+        }       
+        
+        Moments[] mu = new Moments[mContours.size( )];
+
+		/// Get the moments
+		for ( int i = 0; i < mContours.size( ); i++ )
+		{
+			mu[i] = Imgproc.moments(mContours.get( i ));
+		}
+
+		double areas = 0;
+		for( int i = 0; i< mContours.size(); i++ )
+		{
+			areas += mu[i].get_m00( );
+		}
+		setMaximaArea(areas);        
+        return areas;
     }
 
     public List<MatOfPoint> getContours() {
         return mContours;
     }
+
+	public double getMaximaArea() {
+		return maximaArea;
+	}
+
+	public void setMaximaArea(double maximaArea) {
+		this.maximaArea = maximaArea;
+	}
 }

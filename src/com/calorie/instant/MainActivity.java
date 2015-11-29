@@ -26,7 +26,7 @@ public class MainActivity extends Activity
 	private boolean openCVLoaded;
 
 	private TextView cameraDescriptionTextView;
-	
+
 	private ProgressBar pg;
 
 	@Override
@@ -40,7 +40,6 @@ public class MainActivity extends Activity
 		if(cameraNotDetected()){
 			message = "No camera detected, clicking the button below will have unexpected behaviour.";
 		}
-
 		cameraDescriptionTextView = (TextView) findViewById(R.id.text_view_camera_description);
 		cameraDescriptionTextView.setText(message);
 	}
@@ -49,11 +48,9 @@ public class MainActivity extends Activity
 		return !getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
 	}
 
-
 	public void onUseCameraClick(View button){
 		Intent intent = new Intent(this, CameraActivity.class);
 		startActivityForResult(intent, REQ_CAMERA_IMAGE);
-
 	}
 
 	@Override
@@ -63,15 +60,16 @@ public class MainActivity extends Activity
 			Log.i("Got image path: "+ imgPath);
 			displayImage(imgPath);
 			RecorteTask recorte = new RecorteTask(this, cameraDescriptionTextView);
-			recorte.execute(imgPath);			
+			recorte.execute(imgPath);		
 			pg.setVisibility( View.VISIBLE );
-			if(openCVLoaded)
-			{
-				CalculoTask calculoTask = new CalculoTask( getApplicationContext() );
-				calculoTask.execute( imgPath );
-			}
-
-		} else
+		} 
+		else if(requestCode == 2 && resultCode == RESULT_OK)
+		{
+			double[] areas = data.getDoubleArrayExtra("areas");
+			Toast.makeText(this, areas[0] +" "+ areas[1] +" "+ areas[2] +" "+ areas[3], Toast.LENGTH_SHORT).show();
+			
+		}
+		else
 			if(requestCode == REQ_CAMERA_IMAGE && resultCode == RESULT_CANCELED){
 				Log.i("User didn't take an image");
 			}
@@ -82,16 +80,16 @@ public class MainActivity extends Activity
 		ImageView imageView = (ImageView) findViewById(R.id.image_view_captured_image);
 		imageView.setImageBitmap(BitmapHelper.decodeSampledBitmap(path, 300, 250));
 	}
-	
+
 	public void mostrarActividadSeleccion()
 	{
 		pg.setVisibility( View.GONE );
 		Intent intent = new Intent( this, SeleccionActivity.class );
-		startActivity( intent );		
+		startActivityForResult(intent, 2);
 	}
 
 	private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
-		
+
 		@Override
 		public void onManagerConnected(int status) {
 			switch (status) {
@@ -109,17 +107,17 @@ public class MainActivity extends Activity
 		}
 	};
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        if (!OpenCVLoader.initDebug()) {
-            android.util.Log.i(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_9, this, mLoaderCallback);
-        } else {
-        	android.util.Log.d(TAG, "OpenCV library found inside package. Using it!");
-            mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
-        }
-    }
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if (!OpenCVLoader.initDebug()) {
+			android.util.Log.i(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
+			OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_9, this, mLoaderCallback);
+		} else {
+			android.util.Log.d(TAG, "OpenCV library found inside package. Using it!");
+			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+		}
+	}
 
 }
