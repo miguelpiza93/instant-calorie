@@ -21,19 +21,53 @@ public class DatabaseManager extends SQLiteOpenHelper
 	{
 		db.execSQL(sqlCreateGrupo);
 
+		//imagenes 20
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 20)");
+		//imagenes 50
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 50)");
+		
+		//imagenes 65
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 65)");
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 65)");
+		
+		//imagenes 80		
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 80)");
 		
-		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 50)");
+		//imagenes 100		
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 100)");
-		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Uvas', 'Frutas', , 100)");
-		
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Uvas', 'Frutas', , 100)");		
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Arroz', 'Granos', , 100)");
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 100)");
-		
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 100)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 100)");
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pollo', 'Proteina', , 100)");
+		
+		//imagenes 125
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 125)");
+		
+		//imagenes 143
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 143)");
+		
+		//imagenes 150
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 150)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 150)");
+		
+		//imagenes 200
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 200)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Uvas', 'Frutas', , 200");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 200)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 200)");
+			
+		//imagenes 250
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Manzana', 'Frutas', , 250)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 250)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 250)");
+		
+		//imagenes 300
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Uvas', 'Frutas', , 300");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Pasta', 'Granos', , 300)");	
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Arroz', 'Granos', , 300)");
+		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Zanahoria', 'Verduras', , 300)");
 	}	
 
 	@Override
