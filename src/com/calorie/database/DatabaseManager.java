@@ -44,6 +44,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         //      Sin embargo lo normal será que haya que migrar datos de la tabla antigua
         //      a la nueva, por lo que este método debería ser más elaborado.
 		//Se elimina la versión anterior de la tabla
+		
         db.execSQL("DROP TABLE IF EXISTS GrupoAlimenticio");
         db.execSQL(sqlCreateGrupo);
 	}
