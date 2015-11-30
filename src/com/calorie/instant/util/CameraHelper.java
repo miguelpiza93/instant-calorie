@@ -22,6 +22,7 @@ public class CameraHelper {
 			c = Camera.open();
 			Parameters p = c.getParameters();
 			p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+			//p.setPictureSize(600, 600);
 			c.setParameters(p);
 			c.startPreview();
 		} catch (Exception e) {
