@@ -6,7 +6,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="libs/opencv library - 2.4.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Miguel/Desktop/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar">
+	<classpathentry kind="lib" path="D:/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://developer.android.com/reference/"/>
 		</attributes>
