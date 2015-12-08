@@ -90,7 +90,6 @@ public class MainActivity extends Activity
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spVegetales.setAdapter(dataAdapter);
 
-		consultarPesoCercano( "Tomate", "30000" );
 	}
 
 	public void onClickContinuar(View button)
@@ -134,7 +133,12 @@ public class MainActivity extends Activity
 		else if(requestCode == 2 && resultCode == RESULT_OK)
 		{
 			double[] areas = data.getDoubleArrayExtra("areas");
-			resumeTextView.setText("Fruta: "+ areas[0] +"\n"+ "Grano: " + areas[1] +"\n"+ "Proteina: "+areas[2] +"\n"+ "Vegetales: " +areas[3]);
+			double pesoFruta = calcularPesoAproximado( seleccionados[0], areas[0]);
+			double pesoGrano = calcularPesoAproximado( seleccionados[1], areas[1]);
+			double pesoProteina = calcularPesoAproximado( seleccionados[2], areas[2]);
+			double pesoVegetales = calcularPesoAproximado( seleccionados[3], areas[3]);
+			resumeTextView.setText("Fruta: "+ pesoFruta +"\n"+ "Grano: " + pesoGrano 
+					+"\n"+ "Proteina: "+pesoProteina +"\n"+ "Vegetales: " + pesoVegetales);
 		}
 		else
 			if(requestCode == REQ_CAMERA_IMAGE && resultCode == RESULT_CANCELED){
@@ -186,15 +190,15 @@ public class MainActivity extends Activity
 		}
 	}
 
-	public int consultarPesoCercano(String comida, String area )
+	public double calcularPesoAproximado(String comida, double area )
 	{
 		DatabaseManager dbm = new DatabaseManager( this, "AlimentosDB", null, 1 );
 		SQLiteDatabase db = dbm.getWritableDatabase( );
-
+		double peso = -1;
 		if(db != null)
 		{
 			String[]  columnas = {"max(Area)", "Peso"};
-			String[] args = {comida, area};
+			String[] args = {comida, String.valueOf(area)};
 			Cursor c = db.query( true, "Imagen", columnas, "Nombre=? And Area <=?", args, null, null, null, null );
 
 			//Nos aseguramos de que existe al menos un registro
@@ -202,9 +206,10 @@ public class MainActivity extends Activity
 			{
 				//Recorremos el cursor hasta que no haya más registros
 				double areaM= c.getDouble(0);
-				int peso = c.getInt(1);
+				int pesoM = c.getInt(1);
+				peso = (area*pesoM)/areaM;
 			}
 		}				
-		return -1;
+		return peso;
 	}
 }
