@@ -19,8 +19,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:onClick="onCaptureClick"
-        android:text="@string/button_capture_text"
         android:background="@drawable/cap" />
-
-
 </FrameLayout>

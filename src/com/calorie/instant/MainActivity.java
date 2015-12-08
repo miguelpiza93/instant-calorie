@@ -133,10 +133,10 @@ public class MainActivity extends Activity
 		else if(requestCode == 2 && resultCode == RESULT_OK)
 		{
 			double[] areas = data.getDoubleArrayExtra("areas");
-			double pesoFruta = calcularPesoAproximado( seleccionados[0], areas[0]);
-			double pesoGrano = calcularPesoAproximado( seleccionados[1], areas[1]);
-			double pesoProteina = calcularPesoAproximado( seleccionados[2], areas[2]);
-			double pesoVegetales = calcularPesoAproximado( seleccionados[3], areas[3]);
+			int pesoFruta = (int)calcularPesoAproximado( seleccionados[0], areas[0]);
+			int pesoGrano = (int)calcularPesoAproximado( seleccionados[1], areas[1]);
+			int pesoProteina = (int)calcularPesoAproximado( seleccionados[2], areas[2]);
+			int pesoVegetales = (int)calcularPesoAproximado( seleccionados[3], areas[3]);
 			resumeTextView.setText("Fruta: "+ pesoFruta +"\n"+ "Grano: " + pesoGrano 
 					+"\n"+ "Proteina: "+pesoProteina +"\n"+ "Vegetales: " + pesoVegetales);
 		}
@@ -197,8 +197,8 @@ public class MainActivity extends Activity
 		double peso = -1;
 		if(db != null)
 		{
-			String[]  columnas = {"max(Area)", "Peso"};
-			String[] args = {comida, String.valueOf(area)};
+			String[]  columnas =  new String[]{"max(Area)", "Peso"};
+			String[] args =  new String[]{comida, String.valueOf(area)};
 			Cursor c = db.query( true, "Imagen", columnas, "Nombre=? And Area <=?", args, null, null, null, null );
 
 			//Nos aseguramos de que existe al menos un registro
@@ -207,6 +207,15 @@ public class MainActivity extends Activity
 				//Recorremos el cursor hasta que no haya más registros
 				double areaM= c.getDouble(0);
 				int pesoM = c.getInt(1);
+				if(areaM == 0 && pesoM == 0)
+				{
+					columnas = new String[]{"min(Area)", "Peso"};
+					args =  new String[]{comida};
+					Cursor cAux = db.query( true, "Imagen", columnas, "Nombre=?", args, null, null, null, null );
+					cAux.moveToFirst();
+					areaM= cAux.getDouble(0);
+					pesoM = cAux.getInt(1);
+				}
 				peso = (area*pesoM)/areaM;
 			}
 		}				
