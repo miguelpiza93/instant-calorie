@@ -10,6 +10,8 @@ import org.opencv.android.OpenCVLoader;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calorie.database.DatabaseManager;
 import com.calorie.instant.util.BitmapHelper;
 import com.calorie.instant.util.Log;
 
@@ -46,47 +49,47 @@ public class MainActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foods);
-	
+
 		spFruit = (Spinner) findViewById(R.id.spFrutas);
 		List<String> list = new ArrayList<String>();
 		list.add("Manzana");
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spFruit.setAdapter(dataAdapter);
-		
+
 		spGranos = (Spinner) findViewById(R.id.spGranos);
 		list = new ArrayList<String>();
 		list.add("Pasta");
 		dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spGranos.setAdapter(dataAdapter);
-		
+
 		spProteinas = (Spinner) findViewById(R.id.spProteinas);
 		list = new ArrayList<String>();
 		list.add("Carne");
 		dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spProteinas.setAdapter(dataAdapter);
-		
+
 		spVegetales = (Spinner) findViewById(R.id.spVegetales);
 		list = new ArrayList<String>();
 		list.add("Zanahoria");
 		dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spVegetales.setAdapter(dataAdapter);
-		
-		
+
+
 	}
-	
+
 	public void onClickContinuar(View button)
 	{
 		setContentView(R.layout.activity_main);
 		pg = (ProgressBar)findViewById( R.id.progressBar );
-		
+
 		String message = "";
 		if(cameraNotDetected()){
 			message = "No camera detected, clicking the button below will have unexpected behaviour.";
@@ -168,5 +171,28 @@ public class MainActivity extends Activity
 			android.util.Log.d(TAG, "OpenCV library found inside package. Using it!");
 			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 		}
+	}
+
+	public int consultarPesoCercano(String comida, String area )
+	{
+		DatabaseManager dbm = new DatabaseManager( this, "AlimentosDB", null, 1 );
+		SQLiteDatabase db = dbm.getWritableDatabase( );
+
+		if(db != null)
+		{
+			String[]  columnas = {"max(Area)", "Peso"};
+			String[] args = {comida, area};
+			Cursor c = db.query( true, "Imagen", columnas, "Comida=? And Area <=?", args, null, null, null, null );
+
+			//Nos aseguramos de que existe al menos un registro
+			if (c.moveToFirst()) 
+			{
+				//Recorremos el cursor hasta que no haya más registros
+				double areaM= c.getDouble(0);
+				int peso = c.getInt(1);
+				Toast.makeText( this, areaM + " " + peso, Toast.LENGTH_SHORT ).show( );
+			}
+		}				
+		return -1;
 	}
 }
