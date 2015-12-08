@@ -44,10 +44,13 @@ public class MainActivity extends Activity
 	private Spinner spProteinas;
 
 	private Spinner spVegetales;
+	
+	private String[] seleccionados;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		seleccionados = new String[4];
 		setContentView(R.layout.activity_foods);
 
 		spFruit = (Spinner) findViewById(R.id.spFrutas);
@@ -91,7 +94,12 @@ public class MainActivity extends Activity
 	}
 
 	public void onClickContinuar(View button)
-	{
+	{		
+		seleccionados[0] = spFruit.getSelectedItem().toString();
+		seleccionados[1] = spGranos.getSelectedItem().toString();
+		seleccionados[2] = spProteinas.getSelectedItem().toString();
+		seleccionados[3] = spVegetales.getSelectedItem().toString();
+		
 		setContentView(R.layout.activity_main);
 		pg = (ProgressBar)findViewById( R.id.progressBar );
 
