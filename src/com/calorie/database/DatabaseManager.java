@@ -20,7 +20,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 	public void onCreate( SQLiteDatabase db )
 	{
 		db.execSQL(sqlCreateGrupo);
-
 		//imagenes 20
 		db.execSQL("INSERT INTO Imagen (Nombre, Tipo, Area, Peso) VALUES ('Lechuga', 'Verduras', , 20)");
 		//imagenes 50
