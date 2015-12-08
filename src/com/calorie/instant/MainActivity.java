@@ -44,10 +44,13 @@ public class MainActivity extends Activity
 	private Spinner spProteinas;
 
 	private Spinner spVegetales;
+	
+	private String[] seleccionados;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		seleccionados = new String[4];
 		setContentView(R.layout.activity_foods);
 
 		spFruit = (Spinner) findViewById(R.id.spFrutas);
@@ -87,11 +90,16 @@ public class MainActivity extends Activity
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spVegetales.setAdapter(dataAdapter);
 
-
+		consultarPesoCercano( "Tomate", "30000" );
 	}
 
 	public void onClickContinuar(View button)
-	{
+	{		
+		seleccionados[0] = spFruit.getSelectedItem().toString();
+		seleccionados[1] = spGranos.getSelectedItem().toString();
+		seleccionados[2] = spProteinas.getSelectedItem().toString();
+		seleccionados[3] = spVegetales.getSelectedItem().toString();
+		
 		setContentView(R.layout.activity_main);
 		pg = (ProgressBar)findViewById( R.id.progressBar );
 
@@ -187,7 +195,7 @@ public class MainActivity extends Activity
 		{
 			String[]  columnas = {"max(Area)", "Peso"};
 			String[] args = {comida, area};
-			Cursor c = db.query( true, "Imagen", columnas, "Comida=? And Area <=?", args, null, null, null, null );
+			Cursor c = db.query( true, "Imagen", columnas, "Nombre=? And Area <=?", args, null, null, null, null );
 
 			//Nos aseguramos de que existe al menos un registro
 			if (c.moveToFirst()) 
@@ -195,7 +203,6 @@ public class MainActivity extends Activity
 				//Recorremos el cursor hasta que no haya más registros
 				double areaM= c.getDouble(0);
 				int peso = c.getInt(1);
-				Toast.makeText( this, areaM + " " + peso, Toast.LENGTH_SHORT ).show( );
 			}
 		}				
 		return -1;
