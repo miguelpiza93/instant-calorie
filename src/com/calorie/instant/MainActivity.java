@@ -87,7 +87,7 @@ public class MainActivity extends Activity
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spVegetales.setAdapter(dataAdapter);
 
-
+		consultarPesoCercano( "Tomate", "30000" );
 	}
 
 	public void onClickContinuar(View button)
@@ -187,7 +187,7 @@ public class MainActivity extends Activity
 		{
 			String[]  columnas = {"max(Area)", "Peso"};
 			String[] args = {comida, area};
-			Cursor c = db.query( true, "Imagen", columnas, "Comida=? And Area <=?", args, null, null, null, null );
+			Cursor c = db.query( true, "Imagen", columnas, "Nombre=? And Area <=?", args, null, null, null, null );
 
 			//Nos aseguramos de que existe al menos un registro
 			if (c.moveToFirst()) 
@@ -195,7 +195,6 @@ public class MainActivity extends Activity
 				//Recorremos el cursor hasta que no haya más registros
 				double areaM= c.getDouble(0);
 				int peso = c.getInt(1);
-				Toast.makeText( this, areaM + " " + peso, Toast.LENGTH_SHORT ).show( );
 			}
 		}				
 		return -1;
