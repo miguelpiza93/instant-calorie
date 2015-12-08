@@ -1,5 +1,8 @@
 package com.calorie.instant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
@@ -9,8 +12,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +34,50 @@ public class MainActivity extends Activity
 
 	private ProgressBar pg;
 
+	private Spinner spFruit;
+
+	private Spinner spGranos;
+
+	private Spinner spProteinas;
+
+	private Spinner spVegetales;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foods);
+	
+		spFruit = (Spinner) findViewById(R.id.spFrutas);
+		List<String> list = new ArrayList<String>();
+		list.add("Manzana");
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+			android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spFruit.setAdapter(dataAdapter);
+		
+		spGranos = (Spinner) findViewById(R.id.spGranos);
+		list = new ArrayList<String>();
+		list.add("Pasta");
+		dataAdapter = new ArrayAdapter<String>(this,
+			android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spGranos.setAdapter(dataAdapter);
+		
+		spProteinas = (Spinner) findViewById(R.id.spProteinas);
+		list = new ArrayList<String>();
+		list.add("Carne");
+		dataAdapter = new ArrayAdapter<String>(this,
+			android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spProteinas.setAdapter(dataAdapter);
+		
+		spVegetales = (Spinner) findViewById(R.id.spVegetales);
+		list = new ArrayList<String>();
+		list.add("Zanahoria");
+		dataAdapter = new ArrayAdapter<String>(this,
+			android.R.layout.simple_spinner_item, list);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spVegetales.setAdapter(dataAdapter);
 		
 		
 	}
@@ -80,7 +125,6 @@ public class MainActivity extends Activity
 				Log.i("User didn't take an image");
 			}
 	}
-
 
 	private void displayImage(String path) {
 		ImageView imageView = (ImageView) findViewById(R.id.image_view_captured_image);

@@ -46,7 +46,7 @@ public class RecorteTask extends AsyncTask<String, Integer, Void>
 		try 
 		{
 			os = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/InstantCalorie/"+ name+".jpg");
-			croppedBmp.compress(CompressFormat.JPEG, 100, os);
+			croppedBmp.compress(CompressFormat.JPEG, 50, os);
 			os.flush();
 			os.close();
 			croppedBmp = null;
