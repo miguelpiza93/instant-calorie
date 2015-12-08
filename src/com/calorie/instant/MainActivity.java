@@ -49,13 +49,13 @@ public class MainActivity extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foods);
-	
+
 		spFruit = (Spinner) findViewById(R.id.spFrutas);
 		List<String> list = new ArrayList<String>();
 		list.add("Manzana");
 		list.add("Uvas");
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
+				android.R.layout.simple_spinner_item, list);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spFruit.setAdapter(dataAdapter);
 
