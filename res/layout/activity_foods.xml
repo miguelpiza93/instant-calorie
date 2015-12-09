@@ -34,15 +34,6 @@
         android:layout_below="@+id/frutas" />
 
     <TextView
-        android:id="@+id/frutas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/proteinas"
-        android:layout_below="@+id/spGranos"
-        android:text="@string/frutas"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/seleccione"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,34 +42,8 @@
         android:layout_marginLeft="26dp"
         android:layout_marginTop="16dp"
         android:text="@string/seleccione_sus_alimentos"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/proteinas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/seleccione"
-        android:layout_below="@+id/spVegetales"
-        android:text="@string/proteinas"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/granos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/frutas"
-        android:layout_below="@+id/spProteinas"
-        android:text="@string/granos"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/btnContinuar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spFrutas"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickContinuar"
-        android:text="@string/continuar" />
 
     <TextView
         android:id="@+id/vegetales"
@@ -88,6 +53,50 @@
         android:layout_below="@+id/seleccione"
         android:layout_marginTop="20dp"
         android:text="@string/vegetales"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/granos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/proteinas"
+        android:layout_below="@+id/spProteinas"
+        android:layout_marginTop="16dp"
+        android:text="@string/granos"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/proteinas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/vegetales"
+        android:layout_below="@+id/spVegetales"
+        android:layout_marginTop="16dp"
+        android:text="@string/proteinas"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/frutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/granos"
+        android:layout_below="@+id/spGranos"
+        android:layout_marginTop="16dp"
+        android:text="@string/frutas"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:onClick="onClickContinuar"
+        android:text="@string/continuar" />
 
 </RelativeLayout>
